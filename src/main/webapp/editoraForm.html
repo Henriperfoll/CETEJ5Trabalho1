@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" 
+		xmlns:loyout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Editora Form - Trabalho 1</title>
+<style type="text/css">
+	.button{
+		margin: 5px;
+		padding: 5px;
+	}
+</style>
+</head>
+<body>
+	<div th:if="${update == 0}">
+		<div>Nova Editora</div>
+		<form action="#" th:action="@{/editora/editoraForm/save}" th:object="${editora}" method="post">
+			
+			<p> Nome: <input type="text" th:field="*{name}" /></p>
+			<p><input class="button" type="submit" value="Salvar"/><input class="button" type="reset" value="Limpar"></p>
+		</form>
+	</div>
+	<div th:if="${update == 1}">
+		<div>Editar Editora</div>
+<!-- 		<div><a class="button" th:href="@{/editora/editoraForm/delete(cod=${editora.cod})}">Deletar</a></div> -->
+		<form action="#" th:action="@{/editora/editoraForm/update(cod=${editora.cod})}" th:object="${editora}" method="post">
+			<p> Código: <input type="text" readonly="readonly" th:field="*{cod}" /></p>
+			<p> Nome: <input type="text" th:field="*{name}" /></p>
+			<p><input class="button" type="submit" value="Salvar"/><input class="button" type="reset" value="Limpar"></p>
+		</form>
+	</div>
+	<a class="button" href="/editora">Voltar</a>
+</body>
+</html>

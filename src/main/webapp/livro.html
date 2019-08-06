@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:loyout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Livros - Trabalho 1</title>
+<style type="text/css">
+.tabela {
+	border: 1px solid;
+	border-color: black;
+}
+
+.link {
+	margin: 5px;
+}
+
+.pagination-numbers {
+	padding-top: 5%;
+	display: flex;
+}
+
+.pagination {
+	width: 3%;
+}
+
+.button {
+	margin: 5px;
+	padding: 5px;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+	<h1>Livros</h1>
+	<div class="link">
+		<a href="/livro/livroForm">Novo livro</a>
+	</div>
+	<br />
+	<div th:if="${numberOfElements > 0}">
+		<table class="tabela">
+			<thead>
+				<tr style="background-color:lightblue;">
+					<th>Livro</th>
+					<th>Editora</th>
+					<th></th>
+				</tr>
+				<tr></tr>
+			</thead>
+			<tbody>
+				<tr class="tabela" th:each="livro, iStat: ${livros}"
+					th:style="${iStat.odd}? '':'font-weight:bold; background-color:lightgray;'"
+					th:alt-title="${iStat.even}? 'even':'odd'">
+					<td th:text="${livro.nome}"></td>
+					<td th:if="${livro.editora.cod>0}" th:text="${livro.editora.name}"></td>
+					<td><a th:href="@{/livro/livroForm(livro=${livro.cod})}">Editar</a></td>
+			</tr>
+		</tbody>
+		</table>
+		<div class="pagination-numbers">
+			<div th:if="${livros.totalPages > 0}" class="pagination"
+					th:each="pageNumber : ${pageNumbers}">
+				<a th:href="@{/livro(size=${livros.size}, page=${pageNumber})}"
+						th:text=${pageNumber}
+						th:class="${pageNumber==livros.number + 1} ? active"></a>
+		</div>
+	</div>
+	</div>
+	<div class="button">
+		<a href="/">Voltar</a>
+	</div>
+</body>
+</html>

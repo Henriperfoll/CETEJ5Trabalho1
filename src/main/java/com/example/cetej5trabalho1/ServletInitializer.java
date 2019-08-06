@@ -1,4 +1,4 @@
-package com.example.cetej5trabalho;
+package com.example.cetej5trabalho1;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -7,7 +7,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Cetej5TrabalhoApplication.class);
+		return application.sources(Cetej5Trabalho1Application.class);
 	}
 
 }

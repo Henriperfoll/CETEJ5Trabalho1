@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:loyout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Editoras - Trabalho 1</title>
+<style type="text/css">
+.tabela {
+	border: 1px solid;
+	border-color: black;
+}
+
+.link {
+	margin: 5px;
+}
+
+.pagination-numbers {
+	padding-top: 5%;
+	display: flex;
+}
+
+.pagination {
+	width: 3%;
+}
+
+.button {
+	margin: 5px;
+	padding: 5px;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+	<h1>Editoras</h1>
+	<div style="color:red; margin: 5px 5px 5px 5px;" th:if="${fromLivro==1}">Para cadastrar um livro é necessário ter editoras cadastrados</div>
+	<div class="link">
+		<a href="/editora/editoraForm">Nova Editora</a>
+	</div>
+	<br />
+	
+	<div th:if="${numberOfElements > 0}">
+	<table class="tabela">
+		<thead>
+			<tr>
+				<th>Nome</th>
+			</tr>
+			<tr></tr>
+		</thead>
+		<tbody>
+			<tr class="tabela" th:each="editora, iStat: ${editoras}"
+				th:style="${iStat.odd}? 'font-weight:bold;':'background-color:lightgray;'"
+				th:alt-title="${iStat.even}? 'even':'odd'">
+				<td th:text="${editora.name}">
+				<td><a
+					th:href="@{/editora/editoraForm(editora=${editora.cod})}">Editar</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="pagination-numbers">
+		<div th:if="${editoras.totalPages > 0}" class="pagination"
+			th:each="pageNumber : ${pageNumbers}">
+			<a th:href="@{/editora(size=${editoras.size}, page=${pageNumber})}"
+				th:text=${pageNumber}
+				th:class="${pageNumber==editoras.number + 1} ? active"></a>
+		</div>
+	</div>
+	</div>
+	<div class="button"><a href="/">Voltar</a></div>
+	
+</body>
+</html>

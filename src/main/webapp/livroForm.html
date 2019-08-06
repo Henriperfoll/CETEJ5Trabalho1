@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" 
+		xmlns:loyout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Livro Form - Trabalho 1</title>
+<style type="text/css">
+	.button{
+		margin: 5px;
+		padding: 5px;
+	}
+</style>
+</head>
+<body>
+	<div th:if="${update == 0}">
+		<div>Novo Livro</div>
+		<form action="#" th:action="@{/livro/livroForm/save}" th:object="${livro}" method="post">
+			<p> Editora: 
+				<select class="form-control" th:field="*{editora.cod}">
+					<option th:each="e : ${editoras}" th:value="${e.cod}" th:text="${e.name}"></option>
+				</select>
+			</p>
+			<p> Nome: <input type="text" th:field="*{nome}" /></p>
+			<p><input class="button" type="submit" value="Salvar"/><input class="button" type="reset" value="Limpar"></p>
+		</form>
+	</div>
+	<div th:if="${update == 1}">
+		<div>Editar Livro</div>
+<!-- 		<div><a class="button" th:href="@{/livro/livroForm/delete(cod=${livro.cod})}">Deletar</a></div> -->
+		<form action="#" th:action="@{/livro/livroForm/update(cod=${livro.cod})}" th:object="${livro}" method="post">
+			<p> Código: <input type="text" readonly="readonly" th:field="*{cod}" /></p>
+			<p> Editora: 
+				<select class="form-control" th:field="*{editora.cod}">
+					<option th:each="e : ${editoras}" th:value="${e.cod}" th:text="${e.name}"></option>
+				</select>
+			</p>
+			<p> Nome: <input type="text" th:field="*{nome}" /></p>
+			<p><input class="button" type="submit" value="Salvar"/><input class="button" type="reset" value="Limpar"></p>
+		</form>
+	</div>
+	<a class="button" href="/livro">Voltar</a>
+</body>
+</html>
